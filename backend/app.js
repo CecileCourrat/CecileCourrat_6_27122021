@@ -1,13 +1,17 @@
 //Importation d'Express
 const express = require('express');
 
+const path = require('path');
+
+
+const sauceRoutes = require('./routes/sauce');
+const userRoutes = require('./routes/user');
+
 //Création d'un application express
 const app = express();
 
 //Importation de Mongoose
 const mongoose = require('mongoose');
-
-const userRoutes = require('./routes/user');
 
 mongoose.connect('mongodb+srv://cecile_courrat:iTg1nmrOd95R0URM@cluster0.kslyr.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -16,25 +20,21 @@ mongoose.connect('mongodb+srv://cecile_courrat:iTg1nmrOd95R0URM@cluster0.kslyr.m
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use((req, res, next) => {
-    console.log('Requête reçue !');
-    next();
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  next();
 });
 
-app.use((req, res, next) => {
-    res.status(201);
-    next();
-});
-  
-app.use((req, res, next) => {
-    res.json({ message: 'Votre requête a bien été reçue !' }); 
-    next();
-});
 
-app.use((req, res) => {
-    console.log('Réponse envoyée avec succès !');
-});
+app.use(express.json());
+
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/auth', userRoutes);
+
+app.use('/api/sauces', sauceRoutes);
 
 //Exportation de cette application
 module.exports = app;
