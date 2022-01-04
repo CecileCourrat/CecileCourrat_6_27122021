@@ -3,6 +3,9 @@ const http = require('http');
 //Importation de l'application
 const app = require('./app');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const normalizePort = val => {
     const port = parseInt(val, 10);
   

@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
       }
     } catch {
       res.status(401).json({
-        error: new Error('Requete non authentifiée!')
+        error: new Error('Requête non authentifiée!')
       });
    }
 };
