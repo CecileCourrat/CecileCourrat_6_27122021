@@ -1,7 +1,9 @@
 //Importation d'Express
 const express = require('express');
 
-//const helmet = require('helmet');
+const helmet = require('helmet');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const path = require('path');
 
@@ -12,12 +14,12 @@ const userRoutes = require('./routes/user');
 //Création d'une application express
 const app = express();
 
-//app.use(helmet());
+app.use(helmet());
 
 //Importation de Mongoose
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://cecile_courrat:iTg1nmrOd95R0URM@cluster0.kslyr.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect(process.env.MONGO,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
