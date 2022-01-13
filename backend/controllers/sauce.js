@@ -1,9 +1,11 @@
 
+//Importation du modele 
 const Sauce = require('../models/sauce');
 
+//Importation file system
 const fs = require('fs');
 
-
+//Création d'une sauce
 exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;
@@ -20,6 +22,7 @@ exports.createSauce = (req, res, next) => {
       .catch(error => res.status(400).json({ error }));
 };
 
+//Modification d'une sauce
 exports.modifySauce = (req, res, next) => {
     const sauceObject = req.file ?
     {
@@ -44,7 +47,7 @@ exports.modifySauce = (req, res, next) => {
   })
 };
    
- 
+//Suppression d'une sauce
 exports.deleteSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
@@ -58,18 +61,21 @@ exports.deleteSauce = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+//Affichage des sauces
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
     .then(sauces => res.status(200).json(sauces))
     .catch(error => res.status(400).json({ error }));
 };
 
+//Affichage d'une sauce
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
     .catch(error => res.status(404).json({ error }));
 };
 
+//Like dislike une sauce
 exports.likeDislikeSauce = (req, res, next) => {
   const like = req.body.like;
   switch(like) {

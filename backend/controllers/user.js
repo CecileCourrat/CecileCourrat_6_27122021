@@ -1,8 +1,14 @@
+//Importation de bcrypt
 const bcrypt = require('bcrypt');
+
+//Importation de jsonwebtoken
 const jwt = require('jsonwebtoken');
+
+//Importation de dotenv
 const dotenv = require('dotenv');
 dotenv.config();
 
+//Importation du model user
 const User = require('../models/user');
 
 //L'utilisateur crée un compte

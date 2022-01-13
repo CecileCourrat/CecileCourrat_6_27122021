@@ -1,3 +1,4 @@
+//Importation du scéma 
 const passwordSchema = require('../models/password');   
 
 module.exports = (req, res, next) => {
